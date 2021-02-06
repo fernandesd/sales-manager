@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'v0', 'namespace'=>'V0'],function(){
     Route::get('products', [ProductController::class, 'index']);
+    Route::get('product/{product}', [ProductController::class, 'show']);
 });

@@ -17,4 +17,10 @@ class ProductController extends Controller
         return response()
                 ->json(['status' => 200, 'message'=>'Consulta realizada com sucesso!', 'data'=>$products]);
     }
+
+    public function show(Product $product){
+        $product->setImageUrl();
+        return response()
+                ->json(['status' => 200, 'message'=>'Consulta realizada com sucesso!', 'data'=>$product]);
+    }
 }
