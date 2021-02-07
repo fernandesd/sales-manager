@@ -7,11 +7,12 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Freshbitsweb\LaravelCartManager\Traits\Cartable;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasSlug, HasFactory;
+    use Cartable, InteractsWithMedia, HasSlug, HasFactory;
 
     /**
      * Get the options for generating the slug.
@@ -33,8 +34,16 @@ class Product extends Model implements HasMedia
         return 'slug';
     }
 
+    protected $fillable = [
+        'name',
+        'price',
+        'delivery_time'
+    ];
+
     public function setImageUrl(){
         $this->image_url = $this->getFirstMediaUrl();
     }
+
+    
 
 }
