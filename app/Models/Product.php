@@ -40,8 +40,8 @@ class Product extends Model implements HasMedia
         'delivery_time'
     ];
 
-    public function setImageUrl(){
-        $this->image_url = $this->getFirstMediaUrl();
+    public function getImageUrlAttribute(){
+        return $this->getFirstMediaUrl();
     }
 
     
