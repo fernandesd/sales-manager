@@ -31,7 +31,7 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $product) {
-            $product->addMediaFromUrl('http://lorempixel.com/200/200/food/')->toMediaCollection();
+            $product->addMediaFromUrl($this->faker->imageUrl(200, 200))->toMediaCollection();
         });
     }
     

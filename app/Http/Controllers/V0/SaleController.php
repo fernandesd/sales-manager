@@ -9,6 +9,7 @@ use App\Http\Requests\V0\Sale\StoreRequest;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SaleController extends BaseController
@@ -28,7 +29,7 @@ class SaleController extends BaseController
     }
     
     public function store(StoreRequest $request){
-        cart()->setUser(1);
+        cart()->setUser(User::find(1)->id);
 
         $cart_items = cart()->items();
         

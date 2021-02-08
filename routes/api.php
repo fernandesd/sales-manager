@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V0\CartController;
 use App\Http\Controllers\V0\ProductController;
+use App\Http\Controllers\V0\RegisterController;
 use App\Http\Controllers\V0\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::group(['prefix' => 'v0', 'namespace' => 'V0'], function () {
+    
+    // Route::post('register', [RegisterController::class, 'register'])->name('register');
+    // Route::post('login', [RegisterController::class, 'login'])->name('login');
+
     Route::group(['prefix' => 'produtos', 'namespace' => 'V0'], function () {
         Route::get('', [ProductController::class, 'index']);
         Route::get('{product}', [ProductController::class, 'show']);
@@ -29,8 +35,8 @@ Route::group(['prefix' => 'v0', 'namespace' => 'V0'], function () {
 
     Route::group(['prefix' => 'carrinho', 'as'=>'cart.', 'namespace' => 'V0'], function () {
         Route::get('', [CartController::class, 'index'])->name('index');
-        Route::get('adicionar/{product}', [CartController::class, 'add'])->name('add');
-        Route::get('remover/{cartIndex}', [CartController::class, 'remove'])->name('remove');
+        Route::post('adicionar/{product}', [CartController::class, 'add'])->name('add');
+        Route::delete('remover/{cartIndex}', [CartController::class, 'remove'])->name('remove');
     });
 
     Route::group(['prefix' => 'vendas', 'as'=>'sale.', 'namespace' => 'V0'], function () {

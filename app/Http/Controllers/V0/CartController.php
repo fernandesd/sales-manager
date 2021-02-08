@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart as CartResource;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CartController extends BaseController
@@ -13,7 +14,7 @@ class CartController extends BaseController
 
     public function __construct()
     {
-        cart()->setUser(1);
+        cart()->setUser(User::find(1)->id);
     }
 
     public function index()
@@ -24,12 +25,13 @@ class CartController extends BaseController
    
     public function add(Product $product)
     {
-        return $this->sendResponse(new CartResource(Product::addToCart($product->id)), 'Item(s) adicionado(s) com sucesso.');
+        return $this->sendResponse(new CartResource(Product::addToCart($product->id)), 'Item adicionado com sucesso.');
     }
 
     public function remove($cartIndex)
     {
-        return cart()->removeAt($cartIndex);
+        return $this->sendResponse(new CartResource(cart()->removeAt($cartIndex)), 'Item removido do carrinho.');
+
     }
 
 }
