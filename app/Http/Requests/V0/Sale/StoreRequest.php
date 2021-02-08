@@ -25,17 +25,16 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // 
+        return Sale::rules();
     }
 
-
-    public function prepareForValidation()
+    public function messages()
     {
-        // get the input
-        $data = array_map(null, $this->all());
-        $data['date'] = Carbon::now()->setTimezone('America/Sao_Paulo');
-        $this->replace($data);
-
+        return Sale::messages();
     }
 
+    public function attributes()
+    {
+        return Sale::attributes();
+    }
 }

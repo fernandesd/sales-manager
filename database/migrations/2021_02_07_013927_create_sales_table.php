@@ -15,8 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date');
-            $table->unsignedInteger('max_delivery_time');
+            $table->float('total_cost');
             $table->timestamps();
         });
     }

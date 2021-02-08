@@ -11,11 +11,34 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
+        'total_cost',
     ];
+
+    public function getMaxDeliveryTimeAttribute(){
+        return $this->items()->max('delivery_time');
+    }
 
     public function items()
     {
-        return $this->belongsTo(Post::class);
+        return $this->hasMany(SaleItem::class);
+    }
+
+    public static function rules(){ 
+        return [
+            'items'=>'required|array'
+        ];  
+    }
+
+    public static function messages(){ 
+        return [
+            'items.required'=>'campo obrigatório',
+            'items.array'=>'O campo :attribute deve ser um array',
+        ];  
+    }
+
+    public static function attributes(){ 
+        return [
+            'items'=>'itens',
+        ];  
     }
 }
