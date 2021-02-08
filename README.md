@@ -9,6 +9,8 @@
 * cp .env.example .env
     * configure .env variables
 * composer install
+* php artisan key:generate
+* php artisan storage:link
 * php artisan migrate --seed
 * php artisan serve
 * visit [localhost:8000](http://localhost:8000)
