@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\V0;
 
+use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\Product as ProductResource;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::all();
-        $products->each(function($product){
-            return $product->setImageUrl();
-        });
-
-        return response()
-                ->json(['status' => 200, 'message'=>'Consulta realizada com sucesso!', 'data'=>$products]);
+        return $this->sendResponse(ProductResource::collection($products), 'Consulta realizada com sucesso.');
     }
 
-    public function show(Product $product){
-        $product->setImageUrl();
-        return response()
-                ->json(['status' => 200, 'message'=>'Consulta realizada com sucesso!', 'data'=>$product]);
+    public function show($slugProduct)
+    {
+        $product = Product::whereSlug($slugProduct)->first();
+
+        if (is_null($product)) 
+            return $this->sendError('Produto não encontrado.');
+
+        return $this->sendResponse(new ProductResource($product), 'Consulta realizada com sucesso.');
     }
 }

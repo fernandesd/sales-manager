@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers\V0;
 
+use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Cart as CartResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class CartController extends BaseController
 {
+
+    public function __construct()
+    {
+        cart()->setUser(1);
+    }
 
     public function index()
     {
-        cart()->setUser(1);
-        return cart()->items($displayCurrency = true);
+        $cart = cart()->items($displayCurrency = true);
+        return $this->sendResponse(CartResource::collection($cart), 'Consulta realizada com sucesso.');
     }
    
     public function add(Product $product)
     {
-        cart()->setUser(1);
-        return Product::addToCart($product->id);
+        return $this->sendResponse(new CartResource(Product::addToCart($product->id)), 'Item(s) adicionado(s) com sucesso.');
     }
 
-    public function remove(Request $request, Product $product)
+    public function remove($cartIndex)
     {
-        cart()->setUser(1);
-        return cart()->removeAt(0);
+        return cart()->removeAt($cartIndex);
     }
 
 }
