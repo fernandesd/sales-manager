@@ -3,7 +3,7 @@ $(function () {
 })
 
 $(document).ready(function () {
-    const url = 'http://wordpress.test/api/v0';
+    const url = 'https://vx.bolty.cc/api/v0';
     let productContainer = $('.products-container');
     let cartContainer = $('.cart-container');
     let template = '';
