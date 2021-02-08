@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V0\CartController;
 use App\Http\Controllers\V0\ProductController;
+use App\Http\Controllers\V0\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,12 @@ Route::group(['prefix' => 'v0', 'namespace' => 'V0'], function () {
     Route::group(['prefix' => 'carrinho', 'as'=>'cart.', 'namespace' => 'V0'], function () {
         Route::get('', [CartController::class, 'index'])->name('index');
         Route::get('adicionar/{product}', [CartController::class, 'add'])->name('add');
-        Route::get('remover/{product}', [CartController::class, 'remove'])->name('remove');
+        Route::get('remover/{cartIndex}', [CartController::class, 'remove'])->name('remove');
+    });
+
+    Route::group(['prefix' => 'vendas', 'as'=>'sale.', 'namespace' => 'V0'], function () {
+        Route::get('', [SaleController::class, 'index'])->name('index');
+        Route::post('criar', [SaleController::class, 'store'])->name('store');
+        Route::get('{sale}', [SaleController::class, 'show'])->name('show');
     });
 });
