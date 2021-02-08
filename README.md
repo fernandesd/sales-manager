@@ -13,7 +13,7 @@
 * php artisan serve
 * visit [localhost:8000](http://localhost:8000)
 
-### Endpoints api
+### Endpoints api (base url:http://vx.bolty.cc/api/v0)
 
 | uri           | http method | description   | 
 | ------------- |:-------------:|-------------:|
